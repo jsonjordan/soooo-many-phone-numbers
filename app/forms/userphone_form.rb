@@ -4,7 +4,7 @@ class UserphoneForm
   attr_accessor :username, :phones
 
   validates :username, presence: true, length: { minimum: 4, maximum: 15}
-  validates :phones, presence: true, length: { is: 10 }
+  validate :phones_are_valid
 
   def save
     if valid?
@@ -12,7 +12,7 @@ class UserphoneForm
       phone_numbers.each do |number|
         Phone.where(
           user: user,
-          number: number
+          number: number.strip
         ).first_or_create!
       end
     end
@@ -20,7 +20,17 @@ class UserphoneForm
 
   private
 
+  def phones_are_valid
+    bad_numbers = phone_numbers.reject do |phone|
+      phone.length == 10
+    end
+
+    if bad_numbers.any?
+      errors.add "phones[]", "Entered an invalid phone number"
+    end
+  end
+
   def phone_numbers
-    phones.split(",").map { |n| n.strip }
+    phones.select { |n| n != ""}
   end
 end
