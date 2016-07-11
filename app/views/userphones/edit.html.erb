@@ -6,5 +6,6 @@
     <%= f.number_field "phones[]", value: p.number, label: "Current Number", name: "user[phones][]" %>
   <% end %>
   <%= f.number_field "phones[]", value: "", label: "Number To Add (numbers only)", name: "user[phones][]" %>
+  <%= f.hidden_field :id %>
   <%= f.submit "Update" %>
 <% end %>

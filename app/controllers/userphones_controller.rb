@@ -22,8 +22,14 @@ class UserphonesController < ApplicationController
   end
 
   def update
+    @user = User.find params[:id]
     @user_phones = UserphoneForm.new userphones_params
     if @user_phones.save
+      #dumb way of updating
+      @user.phones.delete_all
+      @user.delete
+      @user_phones = UserphoneForm.new userphones_params
+      @user_phones.save
       redirect_to root_path, notice: "Username and Phone numbers updated!"
     else
       render :edit
