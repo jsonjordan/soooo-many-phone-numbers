@@ -1,0 +1,9 @@
+<h1>New User</h1>
+
+<%= bootstrap_form_for @user_phones, url: userphones_path do |f| %>
+  <%= f.text_field :username %>
+  <% 3.times do %>
+    <%= f.number_field :phones %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

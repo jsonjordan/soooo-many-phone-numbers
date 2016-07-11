@@ -51,7 +51,6 @@ gem 'devise'
 gem 'pundit'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap_form'
-gem 'quiet_assets'
 group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'
